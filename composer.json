@@ -21,8 +21,9 @@
     },
     "autoload": {
         "psr-0": {
-            "JotCurate\\": "lib/",
-            "JotContent\\": "lib/"
+            "JotApp\\": "lib/",
+            "JotContent\\": "lib/",
+            "JotCurate\\": "lib/"
         }
     }
 }
