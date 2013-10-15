@@ -9,3 +9,9 @@ tmp/
 vendor/
 var/log/
 
+
+# Temporary, ignore JotApp and JotContent in lib.
+# It will be bundled as a component later
+lib/JotApp/
+lib/JotContent/
+
