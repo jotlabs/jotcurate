@@ -1,0 +1,7 @@
+
+
+# Ignore temp directories
+tmp/
+vendor/
+var/log/
+
