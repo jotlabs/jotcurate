@@ -5,10 +5,8 @@ use JotCurate\Entities\Notes;
 
 class NotesTest extends PHPUnit_Framework_TestCase {
     protected $notes;
-    //protected $dsn = 'sqlite:{DB_PATH}jotcurate.db';
 
     public function setUp() {
-        //$dsn = preg_replace('/\{DB_PATH\}/', UNITTEST_DB_PATH, $this->dsn);
         $dsn = UnitTestUtils::createDsn();
         $this->notes = Notes::getInstance();
         $this->notes->setDataSource(new PdoDataSource($dsn));
