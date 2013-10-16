@@ -25,9 +25,6 @@ class NotesTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue(is_string(Notes::$models['notes']['INSERT']));
     }
 
-    public function testDataSource() {
-    }
-
     public function testGetBySlug() {
         $note = $this->notes->getBySlug('unit-test-note');
         $this->assertNotNull($note);
