@@ -8,18 +8,27 @@ class Notes extends Entity {
 
     static $models = array(
         'notes' => array(
-            'INSERT' => 'INSERT INTO `notes` VALUES(NULL, :title, :slug, :text, NOW());',
+            'insert' => 'INSERT INTO `notes` VALUES(NULL, :title, :slug, :text, :dateAdded);',
             'bySlug' => 'SELECT * FROM `notes` WHERE slug = :slug LIMIT 0,1'
         )
     );
 
 
     public function addNote($note) {
-        return $this->add('notes', array(
-            'title' => $note->title,
-            'slug'  => Slug::slugify($note->title),
-            'text'  => $note->text
+        $noteSlug = Slug::slugify($note->title);
+
+        $response = $this->dataSource->add('notes', array(
+            'title'     => $note->title,
+            'slug'      => $noteSlug,
+            'text'      => $note->text,
+            'dateAdded' => date('Y-m-d H:i:s')
         ));
+
+        if ($response) {
+            $response = $this->getBySlug($noteSlug);
+        }
+        
+        return $response;
     }
 
     public function getBySlug($slug) {
