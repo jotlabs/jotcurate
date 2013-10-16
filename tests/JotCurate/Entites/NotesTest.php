@@ -63,6 +63,27 @@ class NotesTest extends PHPUnit_Framework_TestCase {
         $this->assertNotNull($addedNote->dateAdded);
     }
 
+    public function testInsertDuplicateNote() {
+        $note = new Note();
+        $testNote = array(
+            'title' => 'Newly added note',
+            'slug'  => 'newly-added-note',
+            'text'  => 'This is a newly added Note!'
+        );
+
+        $note->title = $testNote['title'];
+        $note->text  = $testNote['text'];
+
+        $addedNote = $this->notes->addNote($note);
+        $this->assertNotNull($addedNote);
+        $this->assertTrue(is_a($addedNote, 'JotCurate\Models\Note'));
+
+        $this->assertEquals(2, $addedNote->getPrimaryKey());
+
+        $addedNote2 = $this->notes->addNote($note);
+        $this->assertFalse($addedNote2);
+    }
+
 }
 
 ?>
