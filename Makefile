@@ -1,4 +1,4 @@
 
 test:
-	phpunit tests/
+	@phpunit tests/
 
