@@ -35,6 +35,11 @@ class NotesTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue(is_a($note, 'JotCurate\Models\Note'));
         $this->assertTrue(is_a($note, 'JotContent\Model'));
 
+        $this->assertEquals(1, $note->getPrimaryKey());
+        $this->assertEquals('Unit Test note', $note->title);
+        $this->assertEquals('unit-test-note', $note->slug);
+        $this->assertEquals('This is a note for a unit test.', $note->text);
+        $this->assertEquals('2013-10-16 07:44:00', $note->dateAdded);
     }
 
 }
