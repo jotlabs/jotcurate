@@ -9,7 +9,8 @@ class Notes extends Entity {
     static $models = array(
         'notes' => array(
             'insert' => 'INSERT INTO `notes` VALUES(NULL, :title, :slug, :text, :dateAdded);',
-            'bySlug' => 'SELECT * FROM `notes` WHERE slug = :slug LIMIT 0,1'
+            'bySlug' => 'SELECT * FROM `notes` WHERE slug = :slug LIMIT 0,1;',
+            'all'    => 'SELECT * from `notes` ORDER BY dateAdded DESC;'
         )
     );
 
@@ -31,11 +32,18 @@ class Notes extends Entity {
         return $response;
     }
 
+
     public function getBySlug($slug) {
         return $this->dataSource->findOne('notes', 'bySlug', 'JotCurate\Models\Note', array(
             'slug' => $slug
         ));
     }
+
+
+    public function getNotes() {
+        return $this->dataSource->findAll('notes', 'all', 'JotCurate\Models\Note');
+    }
+
 }
 
 ?>

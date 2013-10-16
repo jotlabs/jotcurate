@@ -84,6 +84,40 @@ class NotesTest extends PHPUnit_Framework_TestCase {
         $this->assertFalse($addedNote2);
     }
 
+
+    public function testGetAllNotes() {
+        $noteList = array(
+            array('New note 1', 'This is the first new note'),
+            array('New note 2', 'This is the second new note'),
+            array('New note 3', 'This is the third new note'),
+            array('New note 4', 'This is the fourth new note')
+        );
+
+        foreach($noteList as $newNote) {
+            $note = new Note();
+            $note->title = $newNote[0];
+            $note->text  = $newNote[1];
+
+            $response = $this->notes->addNote($note);
+            $this->assertTrue(is_a($response, 'JotCurate\Models\Note'));
+        }
+
+        $myNotes = $this->notes->getNotes();
+        $this->assertNotNull($myNotes);
+        $this->assertTrue(is_array($myNotes));
+        $this->assertEquals(5, count($myNotes));
+
+        foreach($myNotes as $note) {
+            $this->assertNotNull($note);
+            $this->assertTrue(is_a($note, 'JotCurate\Models\Note'));
+
+            $this->assertTrue(is_int((int) $note->getPrimaryKey()));
+            $this->assertTrue(is_string($note->title));
+            $this->assertTrue(is_string($note->text));
+            $this->assertTrue(is_string($note->slug));
+        }
+    }
+
 }
 
 ?>
