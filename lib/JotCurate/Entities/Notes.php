@@ -9,8 +9,10 @@ class Notes extends Entity {
     static $models = array(
         'notes' => array(
             'insert' => 'INSERT INTO `notes` VALUES(NULL, :title, :slug, :text, :dateAdded);',
-            'bySlug' => 'SELECT * FROM `notes` WHERE slug = :slug LIMIT 0,1;',
-            'all'    => 'SELECT * from `notes` ORDER BY dateAdded DESC;'
+            'update' => 'UPDATE `notes` SET title = :title, text = :text WHERE _id = :noteId;',
+
+            'all'    => 'SELECT * from `notes` ORDER BY dateAdded DESC;',
+            'bySlug' => 'SELECT * FROM `notes` WHERE slug = :slug LIMIT 0,1;'
         )
     );
 
@@ -29,6 +31,18 @@ class Notes extends Entity {
             $response = $this->getBySlug($noteSlug);
         }
         
+        return $response;
+    }
+
+
+    public function updateNote($note) {
+        $response = $this->dataSource->update('notes', array(
+            'noteId' => $note->getPrimaryKey(),
+            'title'  => $note->title,
+            //'slug'   => $note->slug, # Should slug change on update?
+            'text'   => $note->text
+        ));
+
         return $response;
     }
 
