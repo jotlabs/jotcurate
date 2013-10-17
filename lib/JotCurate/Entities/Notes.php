@@ -18,7 +18,8 @@ class Notes extends Entity {
 
 
     public function addNote($note) {
-        $noteSlug = Slug::slugify($note->title);
+        $slugText = ($note->title)? $note->title : substr($note->text, 0, 64);
+        $noteSlug = Slug::slugify($slugText);
 
         $response = $this->dataSource->add('notes', array(
             'title'     => $note->title,

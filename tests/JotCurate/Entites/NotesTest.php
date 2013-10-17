@@ -85,6 +85,26 @@ class NotesTest extends PHPUnit_Framework_TestCase {
     }
 
 
+    public function testInsertBlankSlugNote() {
+        $note = new Note();
+        $testNote = array(
+            'title' => '',
+            'slug'  => '',
+            'text'  => 'This is a newly added Note!'
+        );
+
+        $note->title = $testNote['title'];
+        $note->text  = $testNote['text'];
+
+        $addedNote = $this->notes->addNote($note);
+        $this->assertNotNull($addedNote);
+        $this->assertTrue(is_a($addedNote, 'JotCurate\Models\Note'));
+
+        $this->assertFalse(empty($addedNote->slug));
+
+    }
+
+
     public function testGetAllNotes() {
         $noteList = array(
             array('New note 1', 'This is the first new note'),
