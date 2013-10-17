@@ -147,6 +147,34 @@ class NotesTest extends PHPUnit_Framework_TestCase {
 
     }
 
+    
+    public function testUpdateTitleOfANote() {
+        $note = new Note();
+        $testNote = array(
+            'title' => 'Newly added note',
+            'slug'  => 'newly-added-note',
+            'text'  => 'This is a newly added Note!'
+        );
+
+        $note->title = $testNote['title'];
+        $note->text  = $testNote['text'];
+
+        $addedNote = $this->notes->addNote($note);
+        $this->assertNotNull($addedNote);
+        $this->assertTrue(is_a($addedNote, 'JotCurate\Models\Note'));
+
+        $addedNote->title = 'An updated title';
+        $isSuccess = $this->notes->updateNote($addedNote);
+        $this->assertTrue($isSuccess);
+
+        $updatedNote = $this->notes->getBySlug($addedNote->slug);
+        $this->assertNotNull($updatedNote);
+        $this->assertTrue(is_a($updatedNote, 'JotCurate\Models\Note'));
+        $this->assertEquals($addedNote->title, $updatedNote->title);
+        $this->assertEquals($addedNote->slug,  $updatedNote->slug);
+        $this->assertEquals($addedNote->getPrimaryKey(), $updatedNote->getPrimaryKey());
+    }
+
 }
 
 ?>
