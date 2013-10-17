@@ -18,7 +18,7 @@ class Notes extends Entity {
 
 
     public function addNote($note) {
-        $slugText = ($note->title)? $note->title : substr($note->text, 0, 64);
+        $slugText = ($note->title)? $note->title : $this->_generateTitleFromText($note->text);
         $noteSlug = Slug::slugify($slugText);
 
         $response = $this->dataSource->add('notes', array(
@@ -57,6 +57,15 @@ class Notes extends Entity {
 
     public function getNotes() {
         return $this->dataSource->findAll('notes', 'all', 'JotCurate\Models\Note');
+    }
+
+
+
+    protected function _generateTitleFromText($text) {
+        $lastSpace = strrpos(substr($text, 0, 64), ' ');
+        $title = substr($text, 0, $lastSpace);
+
+        return $title;
     }
 
 }
