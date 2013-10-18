@@ -1,0 +1,23 @@
+# domain: jotcurate.dev
+# public: /home/isofarro/Sites/php5-jotcurate/
+
+<VirtualHost *:80>
+
+    # Admin email, Server Name (domain name) and any aliases
+    ServerAdmin apps@jotlabs.com
+    ServerName  jotcurate.dev
+
+    # TODO: Can we set an environment variable here?
+
+    # Document Root and Index file
+    DocumentRoot   /home/isofarro/Sites/php5-jotcurate/etc/www
+    DirectoryIndex index.html index.php
+
+    # Custom log file locations
+    LogLevel  warn
+    ErrorLog  /home/isofarro/Sites/php5-jotcurate/var/log/error.log
+    CustomLog /home/isofarro/Sites/php5-jotcurate/var/log/access.log combined
+
+</VirtualHost>
+
+
