@@ -1,12 +1,8 @@
 <?php
 
 use Slim\Slim;
-use Slim\Extras\Views\Twig;
+use Slim\Views\Twig;
 use JotApp\Middleware\User;
-
-
-# Standard Slim Twig templating setup
-Twig::$twigDirectory  = BASE_DIR . '/vendor/twig/twig/lib/Twig';
 
 
 # FIXME: fix handling of markdown.
