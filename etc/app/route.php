@@ -1,9 +1,7 @@
 <?php
 
-$slim->get('/', function() use($slim) {
-    $slim->render('layout.tpl', array(
-        'content' => 'Hello World!'
-    ));
-});
+define('ROUTES_DIR', BASE_DIR . '/etc/routes');
+
+include_once ROUTES_DIR . '/notes.php';
 
 ?>
