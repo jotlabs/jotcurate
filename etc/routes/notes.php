@@ -1,7 +1,7 @@
 <?php
 
 $slim->get('/', function() use($slim, $app) {
-    $slim->render('layout.tpl', array(
+    $slim->render('page-types/list.tpl', array(
         'content' => 'Show all notes'
     ));
 })->name('allNotes');
